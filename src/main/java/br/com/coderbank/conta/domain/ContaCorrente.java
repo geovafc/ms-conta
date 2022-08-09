@@ -36,10 +36,10 @@ public class ContaCorrente implements Serializable {
     private UUID id;
 
     @Column(nullable = false)
-    private Long numeroAgencia;
+    private Integer numeroAgencia;
 
     @Column(nullable = false, unique = true)
-    private Long numeroConta;
+    private Integer numeroConta;
 
     @Column(nullable = false)
     private BigDecimal valor;

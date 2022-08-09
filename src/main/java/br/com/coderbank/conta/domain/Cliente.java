@@ -38,7 +38,7 @@ public class Cliente implements Serializable {
     private String nome;
 
     @Column(nullable = false, unique = true, length = 11)
-    private String cpf;
+        private String cpf;
 
 // Todas as operações de persist, merge, remove, refresh serão
 // também realizadas para o objeto filho (conta). Quando salvar
