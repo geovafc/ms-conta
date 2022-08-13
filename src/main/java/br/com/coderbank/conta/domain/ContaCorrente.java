@@ -42,6 +42,6 @@ public class ContaCorrente implements Serializable {
     private Integer numeroConta;
 
     @Column(nullable = false)
-    private BigDecimal valor;
+    private BigDecimal saldo;
 
 }
