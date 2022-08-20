@@ -3,15 +3,13 @@ package br.com.coderbank.conta.controller;
 import br.com.coderbank.conta.controller.exceptions.ObjectNotFoundException;
 import br.com.coderbank.conta.domain.ContaCorrente;
 import br.com.coderbank.conta.dto.ContaCorrenteDTO;
+import br.com.coderbank.conta.dto.movimentacao.DepositoContaDTO;
 import br.com.coderbank.conta.service.ContaCorrenteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ContaCorrenteController {
     private final ContaCorrenteService contaCorrenteService;
+
 
     @GetMapping
     public ResponseEntity<List<ContaCorrente>> obterContas() {
@@ -53,4 +52,14 @@ public class ContaCorrenteController {
                 );
     }
 
+    @PostMapping
+    public ResponseEntity<Object> depositar(@RequestBody DepositoContaDTO depositoContaDTO) {
+        log.info("Requisição REST para depositar saldo na conta : {}", depositoContaDTO);
+
+        var movimentacaoDTO = contaCorrenteService.depositar(depositoContaDTO);
+
+        return ResponseEntity.
+                status(HttpStatus.CREATED)
+                .body(movimentacaoDTO);
+    }
 }
