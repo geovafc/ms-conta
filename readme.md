@@ -5,3 +5,5 @@
 
 
 ### Tratamento de exceção: https://howtodoinjava.com/spring-core/spring-exceptionhandler-annotation/, https://www.toptal.com/java/spring-boot-rest-api-error-handling
+
+### Postgresql docker compose: https://geshan.com.np/blog/2021/12/docker-postgres/

@@ -29,9 +29,6 @@ public class Cliente implements Serializable {
 //UUId são identificadores únicos que podem ser gerados em qualquer lugar
 // são próprios para arquiteturas distribuídas, evitando conflitos que gerariam
 // se fossem sequenciais
-
-//    Permite trabalhar com UUID no mysql e h2
-    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
 
     @Column(nullable = false, length = 50)
