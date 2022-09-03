@@ -1,4 +1,4 @@
-package br.com.coderbank.conta.controller.exceptions;
+package br.com.coderbank.conta.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException{
     private static final long seriaVersionUID = 1L;

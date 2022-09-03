@@ -1,9 +1,9 @@
 package br.com.coderbank.conta.controller;
 
-import br.com.coderbank.conta.controller.exceptions.ObjectNotFoundException;
 import br.com.coderbank.conta.domain.ContaCorrente;
 import br.com.coderbank.conta.dto.ContaCorrenteDTO;
 import br.com.coderbank.conta.dto.movimentacao.DepositoContaDTO;
+import br.com.coderbank.conta.exceptions.ObjectNotFoundException;
 import br.com.coderbank.conta.service.ContaCorrenteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,16 +50,5 @@ public class ContaCorrenteController {
 
                         }
                 );
-    }
-
-    @PostMapping
-    public ResponseEntity<Object> depositar(@RequestBody DepositoContaDTO depositoContaDTO) {
-        log.info("Requisição REST para depositar saldo na conta : {}", depositoContaDTO);
-
-        var movimentacaoDTO = contaCorrenteService.depositar(depositoContaDTO);
-
-        return ResponseEntity.
-                status(HttpStatus.CREATED)
-                .body(movimentacaoDTO);
     }
 }

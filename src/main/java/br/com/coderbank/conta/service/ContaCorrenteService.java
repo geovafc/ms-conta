@@ -2,14 +2,9 @@ package br.com.coderbank.conta.service;
 
 import br.com.coderbank.conta.domain.Cliente;
 import br.com.coderbank.conta.domain.ContaCorrente;
-import br.com.coderbank.conta.domain.Movimentacao;
-import br.com.coderbank.conta.domain.enums.TipoMovimentacao;
 import br.com.coderbank.conta.dto.ContaCorrenteDTO;
-import br.com.coderbank.conta.dto.movimentacao.DepositoContaDTO;
-import br.com.coderbank.conta.dto.movimentacao.MovimentacaoDTO;
 import br.com.coderbank.conta.repository.ClienteRepository;
 import br.com.coderbank.conta.repository.ContaCorrenteRepository;
-import br.com.coderbank.conta.repository.MovimentacaoRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +20,6 @@ import java.util.Random;
 public class ContaCorrenteService {
     private final ClienteRepository clienteRepository;
     private final ContaCorrenteRepository contaCorrenteRepository;
-
-    private final MovimentacaoRepository movimentacaoRepository;
 
     private final ObjectMapper objectMapper;
 
@@ -94,37 +87,4 @@ public class ContaCorrenteService {
                 .build());
     }
 
-    public Optional<MovimentacaoDTO> depositar(DepositoContaDTO depositoContaDTO) {
-        Integer numeroConta = depositoContaDTO.getNumeroConta();
-        BigDecimal valorDeposito = depositoContaDTO.getValor();
-
-        var contaOptional = contaCorrenteRepository.findByNumeroConta(numeroConta);
-        var contaEntity = contaOptional.get();
-
-        contaEntity.adicionarSaldo(valorDeposito);
-
-        contaCorrenteRepository.save(contaEntity);
-
-        MovimentacaoDTO movimentacaoDTO = salvarMovimentacaoBancaria(valorDeposito, contaEntity);
-
-        return Optional.of(movimentacaoDTO);
-    }
-
-    private MovimentacaoDTO salvarMovimentacaoBancaria(BigDecimal valorDeposito, ContaCorrente contaEntity) {
-        var movimentacaoEntity = Movimentacao.builder()
-                .valor(valorDeposito)
-                .tipoMovimentacao(TipoMovimentacao.DEPOSITO)
-                .build();
-
-        movimentacaoEntity.setContaCorrente(contaEntity);
-        movimentacaoRepository.save(movimentacaoEntity);
-
-        var movimentacaoDTO = MovimentacaoDTO.builder()
-                .idMovimentacao(movimentacaoEntity.getId())
-                .idContaCorrente(movimentacaoEntity.getContaCorrente().getId())
-                .tipoMovimentacao(movimentacaoEntity.getTipoMovimentacao().getDescricao())
-                .valor(movimentacaoEntity.getValor())
-                .build();
-        return movimentacaoDTO;
-    }
 }

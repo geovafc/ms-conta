@@ -1,6 +1,7 @@
 package br.com.coderbank.conta.domain;
 
 
+import br.com.coderbank.conta.exceptions.CustomException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -59,7 +60,7 @@ public class ContaCorrente implements Serializable {
         this.saldo = this.saldo.subtract(valor);
 // Se o resultado do saldo comparado com zero for -1, quer dizer que
 // o saldo é menor que zero
-//        if (this.saldo.compareTo(BigDecimal.ZERO) == -1) throw new CustomException()
+        if (this.saldo.compareTo(BigDecimal.ZERO) == -1) throw new CustomException("Saldo insuficiente para realizar a operação");
 
     }
 

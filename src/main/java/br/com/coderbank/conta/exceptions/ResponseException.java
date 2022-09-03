@@ -1,4 +1,4 @@
-package br.com.coderbank.conta.controller.exceptions;
+package br.com.coderbank.conta.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

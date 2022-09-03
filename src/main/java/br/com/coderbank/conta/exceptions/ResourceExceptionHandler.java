@@ -1,4 +1,4 @@
-package br.com.coderbank.conta.controller.exceptions;
+package br.com.coderbank.conta.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,15 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.
                 status(HttpStatus.NOT_FOUND).
+                body(error);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ResponseException> customException(CustomException exception, HttpServletRequest request) {
+        var error = new ResponseException(HttpStatus.BAD_REQUEST.value(), System.currentTimeMillis(), exception.getMessage());
+
+        return ResponseEntity.
+                status(HttpStatus.BAD_REQUEST).
                 body(error);
     }
 }
