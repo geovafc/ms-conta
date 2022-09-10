@@ -1,6 +1,7 @@
 package br.com.coderbank.conta.controller;
 
 import br.com.coderbank.conta.dto.movimentacao.DepositoContaDTO;
+import br.com.coderbank.conta.dto.movimentacao.SaqueContaDTO;
 import br.com.coderbank.conta.service.MovimentacaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,17 @@ public class MovimentacaoController {
         log.info("Requisição REST para depositar saldo na conta : {}", depositoContaDTO);
 
         var movimentacaoDTO = movimentacaoService.depositar(depositoContaDTO);
+
+        return ResponseEntity.
+                status(HttpStatus.OK)
+                .body(movimentacaoDTO);
+    }
+
+    @PostMapping("/saques")
+    public ResponseEntity<Object> sacar(@RequestBody SaqueContaDTO saqueContaDTO) {
+        log.info("Requisição REST para sacar valor da conta : {}", saqueContaDTO);
+
+        var movimentacaoDTO = movimentacaoService.sacar(saqueContaDTO);
 
         return ResponseEntity.
                 status(HttpStatus.OK)

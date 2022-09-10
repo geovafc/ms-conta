@@ -1,0 +1,19 @@
+package br.com.coderbank.conta.dto.movimentacao;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class SaqueContaDTO {
+    private Integer numeroConta;
+
+    private BigDecimal valor;
+
+}
