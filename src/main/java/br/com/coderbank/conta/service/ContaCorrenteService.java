@@ -3,17 +3,21 @@ package br.com.coderbank.conta.service;
 import br.com.coderbank.conta.domain.Cliente;
 import br.com.coderbank.conta.domain.ContaCorrente;
 import br.com.coderbank.conta.dto.ContaCorrenteDTO;
+import br.com.coderbank.conta.mapper.ContaCorrenteMapper;
 import br.com.coderbank.conta.repository.ClienteRepository;
 import br.com.coderbank.conta.repository.ContaCorrenteRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +26,9 @@ public class ContaCorrenteService {
     private final ContaCorrenteRepository contaCorrenteRepository;
 
     private final ObjectMapper objectMapper;
+
+    private ContaCorrenteMapper contaCorrenteMapper = Mappers.getMapper(ContaCorrenteMapper.class);
+
 
     public void criarConta(String jsonCliente) throws JsonProcessingException {
         var cliente = objectMapper.readValue(jsonCliente, Cliente.class);
@@ -45,9 +52,19 @@ public class ContaCorrenteService {
         return contaCorrente;
     }
 
-    public List<ContaCorrente> obterContas() {
+    public List<ContaCorrenteDTO> obterContas() {
 
-        return contaCorrenteRepository.findAll();
+//        return contaCorrenteRepository.findAll().
+//                stream().map(c -> {
+//                    var contaCorrenteDTO = new ContaCorrenteDTO();
+//                    BeanUtils.copyProperties(c, contaCorrenteDTO);
+//                    return contaCorrenteDTO;
+//                }).collect(Collectors.toList());
+        List<ContaCorrente> contasCorrenteEntidade = contaCorrenteRepository.findAll();
+
+        return contaCorrenteMapper.
+                toListaContaCorrenteDTO(contasCorrenteEntidade);
+
     }
 
     public Optional<ContaCorrenteDTO> obterContaCliente(String cpf) {

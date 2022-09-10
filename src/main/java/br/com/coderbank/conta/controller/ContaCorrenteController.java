@@ -24,7 +24,7 @@ public class ContaCorrenteController {
 
 
     @GetMapping
-    public ResponseEntity<List<ContaCorrente>> obterContas() {
+    public ResponseEntity<List<ContaCorrenteDTO>> obterContas() {
         log.info("Requisição REST para obter todas as contas");
 
         return ResponseEntity.status(HttpStatus.OK)

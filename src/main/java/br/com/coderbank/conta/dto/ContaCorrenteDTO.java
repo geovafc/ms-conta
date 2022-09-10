@@ -20,10 +20,13 @@ public class ContaCorrenteDTO {
 
     private UUID id;
 
+    private UUID idCliente;
+
     private Integer numeroAgencia;
 
     private Integer numeroConta;
 
     private BigDecimal saldo;
+
 
 }
