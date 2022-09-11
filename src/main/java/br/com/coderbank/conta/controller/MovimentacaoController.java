@@ -1,13 +1,18 @@
 package br.com.coderbank.conta.controller;
 
+import br.com.coderbank.conta.dto.ContaCorrenteDTO;
 import br.com.coderbank.conta.dto.movimentacao.DepositoContaDTO;
+import br.com.coderbank.conta.dto.movimentacao.MovimentacaoDTO;
 import br.com.coderbank.conta.dto.movimentacao.SaqueContaDTO;
+import br.com.coderbank.conta.dto.movimentacao.TransferenciaRequestDTO;
 import br.com.coderbank.conta.service.MovimentacaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/movimentacoes")
@@ -36,5 +41,24 @@ public class MovimentacaoController {
         return ResponseEntity.
                 status(HttpStatus.OK)
                 .body(movimentacaoDTO);
+    }
+
+    @PostMapping("/transferencias")
+    public ResponseEntity<Object> transferir(@RequestBody TransferenciaRequestDTO transferenciaRequestDTO) {
+        log.info("Requisição REST para transferir valor entre contas: {}", transferenciaRequestDTO);
+
+        var transferenciaResponseDTO = movimentacaoService.transferir(transferenciaRequestDTO);
+
+        return ResponseEntity.
+                status(HttpStatus.OK)
+                .body(transferenciaResponseDTO);
+    }
+
+    @GetMapping("/{numeroConta}")
+    public ResponseEntity<List<MovimentacaoDTO>> obterMovimentacoesConta(@PathVariable(value = "numeroConta") Integer numeroConta) {
+        log.info("Requisição REST para obter movimentações da conta : {}", numeroConta);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(movimentacaoService.obterMovimentacoesConta(numeroConta));
     }
 }
