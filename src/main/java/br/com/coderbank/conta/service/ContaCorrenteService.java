@@ -21,9 +21,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ContaCorrenteService {
-    private final ClienteRepository clienteRepository;
-    private final ContaCorrenteRepository contaCorrenteRepository;
+//CLASSE QUE SERÁ TESTADA
+
+ class ContaCorrenteService {
+//CLASSES MOCKADAS
+
+ClienteRepository clienteRepository;
+ContaCorrenteRepository contaCorrenteRepository;
 
     private final ObjectMapper objectMapper;
 
