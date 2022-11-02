@@ -34,10 +34,10 @@ public class ContaCorrenteService {
         var cliente = objectMapper.readValue(jsonCliente, Cliente.class);
 
         var contaCorrente = buildContaCorrente();
-clienteRepository
-        cliente.setConta(contaCorrente);
 
-          .save(cl   iente);
+        cliente.setConta(contaCorrente);
+        clienteRepository.save(cliente);
+
     }
 
     private ContaCorrente buildContaCorrente() {
