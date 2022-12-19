@@ -45,6 +45,12 @@ public class ContaCorrenteServiceTest {
                 .id(UUID.fromString("23e4567-e89b-12d3-a456-426614174000"))
                 .build();
 
+//        String jsonCliente = "{\n" +
+//                "\"id\": \"23e4567-e89b-12d3-a456-426614174000\"\n" +
+//                "}";
+//
+//        when(objectMapper.readValue(jsonCliente, eq(Cliente.class))).thenReturn(clienteFake);
+//
         when(objectMapper.readValue(anyString(), eq(Cliente.class))).thenReturn(clienteFake);
 
 //        Ação: é a chamada para  o método que queremos testar. Quem
