@@ -23,11 +23,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 //CLASSE QUE SERÁ TESTADA
 
- class ContaCorrenteService {
+public class ContaCorrenteService {
 //CLASSES MOCKADAS
 
-ClienteRepository clienteRepository;
-ContaCorrenteRepository contaCorrenteRepository;
+    private final ClienteRepository clienteRepository;
+    private final ContaCorrenteRepository contaCorrenteRepository;
 
     private final ObjectMapper objectMapper;
 
@@ -58,12 +58,6 @@ ContaCorrenteRepository contaCorrenteRepository;
 
     public List<ContaCorrenteDTO> obterContas() {
 
-//        return contaCorrenteRepository.findAll().
-//                stream().map(c -> {
-//                    var contaCorrenteDTO = new ContaCorrenteDTO();
-//                    BeanUtils.copyProperties(c, contaCorrenteDTO);
-//                    return contaCorrenteDTO;
-//                }).collect(Collectors.toList());
         List<ContaCorrente> contasCorrenteEntidade = contaCorrenteRepository.findAll();
 
         return contaCorrenteMapper.
